@@ -118,14 +118,14 @@
     Steals = sum(TeamSteals)) %&gt;%
   filter(Conference == &quot;SEC&quot;)</code></pre>
 <pre><code>## `summarise()` has grouped output by &#39;Team&#39;. You can override using the `.groups` argument.</code></pre>
-<p>I want to create a graph which highlights teams total turnovers and steals. I will use a dumbbell chart to this, which shows magnitude.</p>
+<p>I want to create a graph which highlights teams total turnovers and steals. I will use a dumbbell chart to do this, which shows the difference between two things on a number line.</p>
 <pre class="r"><code>ggplot() + 
   geom_dumbbell(
     data=possessions, 
     aes(y=Team, x=possessionslost, xend=Steals)
   )</code></pre>
 <p><img src="/2021/03/31/how-does-kentucky-s-total-turnovers-and-steals-compare-to-the-rest-of-the-sec/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>This chart is a good start, but it isn’t very clear. I’m going to change it by making turnovers blue, steals purple, and reordering it by amount of turnovers. The total amount of turnovers and steals for each team would be on the x and the y axis would have the sec teams, reordered by the amount of turnovers.</p>
+<p>This chart is a good start, but it isn’t very clear. I’m going to change it by making turnovers blue, steals purple, and reordering it by the amount of turnovers. The total amount of turnovers and steals for each team would be on the x-axis and the y-axis would have the sec teams, reordered by the amount of turnovers.</p>
 <pre class="r"><code>ggplot() + 
   geom_dumbbell(
     data=possessions, 
@@ -149,7 +149,7 @@
     panel.grid.minor = element_blank()
     ) </code></pre>
 <p><img src="/2021/03/31/how-does-kentucky-s-total-turnovers-and-steals-compare-to-the-rest-of-the-sec/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>Kentucky ended up the year with less turnovers than Alabama and Arkansas, but had far less steals than them. Teams that made the tournament like LSU, Tennessee, and Alabama lines from steals and turnovers were smaller than Kentucky’s, showing how important turnover differential is to winning.</p>
+<p>Kentucky ended up the year with less turnovers than top teams like Alabama and Arkansas, but had far less steals than them. Teams that made the tournament like LSU, Tennessee, and Alabama lines from steals and turnovers were smaller than Kentucky’s, showing how important turnover differential is to winning.</p>
 
     </div>
   </article>
