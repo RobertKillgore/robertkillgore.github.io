@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>How does Kentucky&#39;s total turnovers and steals compare to the rest of the SEC - Robert Killgore Kentucky Sports Data Project</title>
+<meta property="og:title" content="How does Kentucky&#39;s total turnovers and steals compare to the rest of the SEC - Robert Killgore Kentucky Sports Data Project">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/robertkillgore">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/bobkillgore">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">How does Kentucky&#39;s total turnovers and steals compare to the rest of the SEC</h1>
+
+    
+    <span class="article-date">2021-03-31</span>
+    
+
+    <div class="article-content">
+      
+<script src="/2021/03/31/how-does-kentucky-s-total-turnovers-and-steals-compare-to-the-rest-of-the-sec/index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Any basketball fan knows steals are good and turnovers are bad. If a team force a lot of turnovers in a given game, they steal away their opponents precious possessions and increase the likelihood of winning that game. Let’s see how well Kentucky kept care of the ball and how well they wrecked havoc on the defensive end.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggalt)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;ggalt&#39;:
+##   method                  from   
+##   grid.draw.absoluteGrob  ggplot2
+##   grobHeight.absoluteGrob ggplot2
+##   grobWidth.absoluteGrob  ggplot2
+##   grobX.absoluteGrob      ggplot2
+##   grobY.absoluteGrob      ggplot2</code></pre>
+<pre class="r"><code>logs21 &lt;- read_csv(&quot;logs21.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Season = col_character(),
+##   Date = col_date(format = &quot;&quot;),
+##   TeamFull = col_character(),
+##   Opponent = col_character(),
+##   HomeAway = col_character(),
+##   W_L = col_character(),
+##   URL = col_character(),
+##   Conference = col_character(),
+##   Team = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<p>First, I will add the total turnovers and steals for each team in the SEC.</p>
+<pre class="r"><code>possessions &lt;- logs21 %&gt;%
+  group_by(Team, Conference) %&gt;% 
+  summarise(
+    possessionslost = sum(TeamTurnovers), 
+    Steals = sum(TeamSteals)) %&gt;%
+  filter(Conference == &quot;SEC&quot;)</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;Team&#39;. You can override using the `.groups` argument.</code></pre>
+<p>I want to create a graph which highlights teams total turnovers and steals. I will use a dumbbell chart to this, which shows magnitude.</p>
+<pre class="r"><code>ggplot() + 
+  geom_dumbbell(
+    data=possessions, 
+    aes(y=Team, x=possessionslost, xend=Steals)
+  )</code></pre>
+<p><img src="/2021/03/31/how-does-kentucky-s-total-turnovers-and-steals-compare-to-the-rest-of-the-sec/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>This chart is a good start, but it isn’t very clear. I’m going to change it by making turnovers blue, steals purple, and reordering it by amount of turnovers. The total amount of turnovers and steals for each team would be on the x and the y axis would have the sec teams, reordered by the amount of turnovers.</p>
+<pre class="r"><code>ggplot() + 
+  geom_dumbbell(
+    data=possessions, 
+    aes(y=reorder(Team, possessionslost), x=possessionslost, xend=Steals),
+    size = 1,
+    color = &quot;grey&quot;,
+    colour_x = &quot;blue&quot;,
+    colour_xend = &quot;purple&quot;) + 
+  theme_minimal() +
+  labs(
+    x=&quot;Date&quot;, 
+    y=&quot;reorder(Team, possessionslost)&quot;, 
+    title=&quot;Kentucky couldn&#39;t force enough turnovers to make up their own&quot;, 
+    subtitle=&quot;The Wildcats were middle of the pack in turnovers but 2nd to last in steals in the SEC&quot;, 
+    caption=&quot;Source: NCAA | By Robert Killgore&quot;) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 11, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10), 
+    plot.subtitle = element_text(size=8), 
+    panel.grid.minor = element_blank()
+    ) </code></pre>
+<p><img src="/2021/03/31/how-does-kentucky-s-total-turnovers-and-steals-compare-to-the-rest-of-the-sec/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Kentucky ended up the year with less turnovers than Alabama and Arkansas, but had far less steals than them. Teams that made the tournament like LSU, Tennessee, and Alabama lines from steals and turnovers were smaller than Kentucky’s, showing how important turnover differential is to winning.</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

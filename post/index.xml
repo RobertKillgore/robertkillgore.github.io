@@ -8,6 +8,16 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>How does Kentucky&#39;s total turnovers and steals compare to the rest of the SEC</title>
+      <link>/2021/03/31/how-does-kentucky-s-total-turnovers-and-steals-compare-to-the-rest-of-the-sec/</link>
+      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/03/31/how-does-kentucky-s-total-turnovers-and-steals-compare-to-the-rest-of-the-sec/</guid>
+      <description>Any basketball fan knows steals are good and turnovers are bad. If a team force a lot of turnovers in a given game, they steal away their opponents precious possessions and increase the likelihood of winning that game. Let’s see how well Kentucky kept care of the ball and how well they wrecked havoc on the defensive end.
+library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.</description>
+    </item>
+    
+    <item>
       <title>What does Kentucky&#39;s cumulative point differential mean?</title>
       <link>/2021/03/31/what-does-kentucky-s-cumulative-point-differential-mean/</link>
       <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
