@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kentucky on Robert Killgore Kentucky Sports Data Project</title>
-    <link>/tags/kentucky/</link>
+    <link>/categories/kentucky/</link>
     <description>Recent content in Kentucky on Robert Killgore Kentucky Sports Data Project</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/kentucky/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/kentucky/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>What does Kentucky&#39;s cumulative point differential mean?</title>
       <link>/2021/03/31/what-does-kentucky-s-cumulative-point-differential-mean/</link>

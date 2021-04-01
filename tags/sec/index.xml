@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/sec/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>What does Kentucky&#39;s cummulative point differential mean?</title>
-      <link>/2021/03/31/what-does-kentucky-s-cummulative-point-differential-mean/</link>
+      <title>What does Kentucky&#39;s cumulative point differential mean?</title>
+      <link>/2021/03/31/what-does-kentucky-s-cumulative-point-differential-mean/</link>
       <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>/2021/03/31/what-does-kentucky-s-cummulative-point-differential-mean/</guid>
+      <guid>/2021/03/31/what-does-kentucky-s-cumulative-point-differential-mean/</guid>
       <description>The bluebloods of college basketball were not their usual selves this season, Kentucky being the most disappointing of them all. The Wildcats went 9-16 this year and finished 8-9 in conference play, missing the NCAA tournament for the first time since 2013. To begin looking at what went wrong for Kentucky this season, let’s start by grabbing the games logs for each team.
 library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.</description>
     </item>
