@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>What does Kentucky&#39;s cummulative point differential mean? - Robert Killgore Kentucky Sports Data Project</title>
+<meta property="og:title" content="What does Kentucky&#39;s cummulative point differential mean? - Robert Killgore Kentucky Sports Data Project">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/robertkillgore">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/bobkillgore">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">What does Kentucky&#39;s cummulative point differential mean?</h1>
+
+    
+    <span class="article-date">2021-03-31</span>
+    
+
+    <div class="article-content">
+      
+<script src="/2021/03/31/what-does-kentucky-s-cummulative-point-differential-mean/index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>The bluebloods of college basketball were not their usual selves this season, Kentucky being the most disappointing of them all. The Wildcats went 9-16 this year and finished 8-9 in conference play, missing the NCAA tournament for the first time since 2013. To begin looking at what went wrong for Kentucky this season, let’s start by grabbing the games logs for each team.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>logs21 &lt;- read_csv(&quot;logs21.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Season = col_character(),
+##   Date = col_date(format = &quot;&quot;),
+##   TeamFull = col_character(),
+##   Opponent = col_character(),
+##   HomeAway = col_character(),
+##   W_L = col_character(),
+##   URL = col_character(),
+##   Conference = col_character(),
+##   Team = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<p>To get started, I’m going to look at cumulative point differential for the teams in the SEC. A positive point differential typically means a teams record should be at least .500 while a negative point differential typically means a teams record should not be good.</p>
+<pre class="r"><code>sec &lt;- logs21 %&gt;% 
+  mutate(pointdifferential = TeamScore - OpponentScore) %&gt;% group_by(Team) %&gt;% mutate(CumPointDiff = cumsum(pointdifferential)) %&gt;% filter(Conference == &quot;SEC&quot;)</code></pre>
+<p>Now that we got the cumulative point differential for each team in the SEC, let’s compare Kentucky to the 22-6 Arkansas Razorbacks and the 13-14 Auburn Tigers</p>
+<pre class="r"><code>uk &lt;- sec %&gt;% filter(Team == &quot;Kentucky&quot;) 
+ark &lt;- sec %&gt;% filter(Team == &quot;Arkansas&quot;)
+aub &lt;- sec %&gt;% filter(Team== &quot;Auburn&quot;)</code></pre>
+<pre class="r"><code>ggplot() + 
+  geom_step(data=sec, aes(x=Date, y=CumPointDiff, group=Team), color=&quot;light grey&quot;) +
+  geom_step(data=uk, aes(x=Date, y=CumPointDiff, group=Team), color=&quot;blue&quot;) + 
+  geom_step(data=ark, aes(x=Date, y=CumPointDiff, group=Team), color=&quot;red&quot;) +
+  geom_step(data=aub, aes(x=Date, y=CumPointDiff, color=Team), color=&quot;orange&quot;) +
+  annotate(&quot;text&quot;, x=(as.Date(&quot;2021-01-02&quot;)), y=20, label=&quot;Auburn&quot;) +
+  annotate(&quot;text&quot;, x=(as.Date(&quot;2021-1-16&quot;)), y=-30, label=&quot;Kentucky&quot;) +
+  annotate(&quot;text&quot;, x=(as.Date(&quot;2021-02-01&quot;)), y=283, label=&quot;Arkansas&quot;) +
+  labs(
+    x=&quot;Date&quot;, 
+    y=&quot;Cumulative Point Differential&quot;, 
+    title=&quot;Kentucky&#39;s Inability to win close games&quot;, 
+    subtitle=&quot;The Wildcats would keep the game close but couldn&#39;t find a way to win&quot;, 
+    caption=&quot;Source: NCAA | By Robert Killgore&quot;) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 11), 
+    plot.subtitle = element_text(size=10), 
+    panel.grid.minor = element_blank()
+    ) </code></pre>
+<p><img src="/2021/03/31/what-does-kentucky-s-cummulative-point-differential-mean/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Kentucky ended up finishing the year with a positive point differential along with Auburn, something not typically seen in a 9-16 team. One reason for this is the Wildcats were 2-8 in games decided by 4 points or less, including a one point loss against Mississippi State in the SEC tournament. Say they go 5-5 instead, Kentucky ends up 12-13, an average team.</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+
