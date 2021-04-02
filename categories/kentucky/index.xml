@@ -13,7 +13,8 @@
       <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/2021/03/31/how-does-kentucky-s-field-goal-shooting-percentage-compare-to-power-five-teams/</guid>
-      <description>In the John Calipari era, Kentucky has had elite shooters like Devin Booker, Tyler Herro, and Malik Monk. Freshman guard Brandon Boston Jr was supposed to be that guy, but finished the season shooting 30% from three and shooting 35.5% from the field. Let’s see how Kentucky’s field goal shooting percentage compares to the rest of the power five teams.</description>
+      <description>In the John Calipari era, Kentucky has had elite shooters like Devin Booker, Tyler Herro, and Malik Monk. Freshman guard Brandon Boston Jr was supposed to be that guy, but finished the season shooting 30% from three and shooting 35.5% from the field. Let’s see how Kentucky’s field goal shooting percentage compares to the rest of the power five teams.
+library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.</description>
     </item>
     
     <item>
