@@ -26,36 +26,6 @@
     </item>
     
     <item>
-      <title>How does Kentucky&#39;s field goal shooting percentage compare to power five teams?</title>
-      <link>/2021/03/31/how-does-kentucky-s-field-goal-shooting-percentage-compare-to-power-five-teams/</link>
-      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/03/31/how-does-kentucky-s-field-goal-shooting-percentage-compare-to-power-five-teams/</guid>
-      <description>In the John Calipari era, Kentucky has had elite shooters like Devin Booker, Tyler Herro, and Malik Monk. Freshman guard Brandon Boston Jr was supposed to be that guy, but finished the season shooting 30% from three and shooting 35.5% from the field. Let’s see how Kentucky’s field goal shooting percentage compares to the rest of the power five teams.
-library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.</description>
-    </item>
-    
-    <item>
-      <title>How does Kentucky&#39;s total turnovers and steals compare to the rest of the SEC</title>
-      <link>/2021/03/31/how-does-kentucky-s-total-turnovers-and-steals-compare-to-the-rest-of-the-sec/</link>
-      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/03/31/how-does-kentucky-s-total-turnovers-and-steals-compare-to-the-rest-of-the-sec/</guid>
-      <description>Any basketball fan knows steals are good and turnovers are bad. If a team force a lot of turnovers in a given game, they steal away their opponents precious possessions and increase the likelihood of winning that game. Let’s see how well Kentucky kept care of the ball and how well they wrecked havoc on the defensive end.
-library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.</description>
-    </item>
-    
-    <item>
-      <title>What does Kentucky&#39;s cumulative point differential mean?</title>
-      <link>/2021/03/31/what-does-kentucky-s-cumulative-point-differential-mean/</link>
-      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/03/31/what-does-kentucky-s-cumulative-point-differential-mean/</guid>
-      <description>The bluebloods of college basketball were not their usual selves this season, Kentucky being the most disappointing of them all. The Wildcats went 9-16 this year and finished 8-9 in conference play, missing the NCAA tournament for the first time since 2013. To begin looking at what went wrong for Kentucky this season, let’s start by grabbing the games logs for each team.
-library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.</description>
-    </item>
-    
-    <item>
       <title>R Notebook</title>
       <link>/1/01/01/r-notebook/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
