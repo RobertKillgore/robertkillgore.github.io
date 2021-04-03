@@ -105,7 +105,7 @@
 <p>To get started, I’m going to look at cumulative point differential for the teams in the SEC. You would think a team with a positive point differential should be at least .500 while a team with a negative point differential should be below .500.</p>
 <pre class="r"><code>sec &lt;- logs21 %&gt;% 
 mutate(pointdifferential = TeamScore - OpponentScore) %&gt;% 
-group_by(Team) %&gt;% mutate(CumPointDiff = cumsum(pointdifferential)) %&gt;% filter(Conference == &quot;SEC&quot;)</code></pre>
+group_by(Team) %&gt;% mutate(CumPointDiff = cumsum(pointdifferential)) %&gt;%  filter(Conference == &quot;SEC&quot;)</code></pre>
 <p>Now that we got the cumulative point differential for each team in the SEC, let’s compare Kentucky to the 22-6 Arkansas Razorbacks and the 13-14 Auburn Tigers.</p>
 <pre class="r"><code>uk &lt;- sec %&gt;% filter(Team == &quot;Kentucky&quot;) 
 ark &lt;- sec %&gt;% filter(Team == &quot;Arkansas&quot;)
@@ -196,7 +196,9 @@ Kentucky ended up the year with less turnovers than top teams like Alabama and A
 <pre class="r"><code>powerfive &lt;- c(&quot;SEC&quot;, &quot;Big Ten&quot;, &quot;Pac-12&quot;, &quot;Big 12&quot;, &quot;ACC&quot;)</code></pre>
 <pre class="r"><code>powerfive &lt;- logs21 %&gt;% filter(Conference %in% powerfive)</code></pre>
 <p>Next, I need to find out the field goal percent average for the power five throughout the season and Kentucky’s. Then using that information, we can compare Kentucky’s field goal percentage throughout the season to the power five.</p>
-<pre class="r"><code>fieldgoalaverage &lt;- logs21 %&gt;% group_by(Date) %&gt;% summarise(mean_fieldgoalshooting=mean(TeamFGPCT))</code></pre>
+<pre class="r"><code>fieldgoalaverage &lt;- logs21 %&gt;% 
+  group_by(Date) %&gt;% 
+  summarise(mean_fieldgoalshooting=mean(TeamFGPCT))</code></pre>
 <pre class="r"><code>uk &lt;- logs21 %&gt;% filter(Team == &quot;Kentucky&quot;)</code></pre>
 <pre class="r"><code>ggplot() + 
   geom_line(data = powerfive, aes(x=Date, y=TeamFGPCT, group=Team), color=&quot;grey&quot;) + geom_line(data=uk, aes(x=Date, y=TeamFGPCT), color=&quot;blue&quot;) + 
@@ -218,7 +220,7 @@ library(ggbeeswarm)
 library(ggrepel)</code></pre>
 <pre class="r"><code>offensiverebounds &lt;- logs21 %&gt;%
   group_by(Team, Conference) %&gt;% 
-  summarise(totaloffensiverebounds= sum(TeamOffRebounds)) %&gt;% filter(Conference==&quot;Big Ten&quot;| Conference== &quot;SEC&quot;| Conference== &quot;Big 12&quot;| Conference== &quot;ACC&quot;| Conference== &quot;Pac-12&quot;) </code></pre>
+  summarise(totaloffensiverebounds= sum(TeamOffRebounds)) %&gt;%     filter(Conference==&quot;Big Ten&quot;| Conference== &quot;SEC&quot;| Conference== &quot;Big 12&quot;| Conference== &quot;ACC&quot;| Conference== &quot;Pac-12&quot;) </code></pre>
 <pre><code>## `summarise()` has grouped output by &#39;Team&#39;. You can override using the `.groups` argument.</code></pre>
 <p>Next, we have to filter out for Kentucky. Then we can create a beeswarm plot comparing power five teams in offensive rebounds</p>
 <pre class="r"><code>uk &lt;- offensiverebounds %&gt;% filter(Team== &quot;Kentucky&quot;)</code></pre>
@@ -233,7 +235,7 @@ library(ggrepel)</code></pre>
     caption=&quot;Source: NCAA | By Robert Killgore&quot;) +
   theme_minimal() +  theme(
     plot.title = element_text(size = 15, face = &quot;bold&quot;),
-    axis.title = element_text(size = 10), 
+    axis.title = element_text(size = 12), 
     plot.subtitle = element_text(size=11), 
     panel.grid.minor = element_blank()
     ) </code></pre>
