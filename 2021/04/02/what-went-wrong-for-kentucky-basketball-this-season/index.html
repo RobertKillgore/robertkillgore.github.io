@@ -235,7 +235,7 @@ library(ggrepel)</code></pre>
     panel.grid.minor = element_blank()
     ) </code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<p>With the new information we have let’s see how much Kentucky underperformed this season. Let’s look at assists, a good metric for a team’s success. First let’s set up a scatterplot with the amount of wins each team had this year on the y-axis and team’s total assists on the x-axis</p>
+<p>With the new information we have let’s see how much Kentucky underperformed this season. Let’s look at assists, a good metric for a team’s success. First let’s set up a scatterplot with the amount of wins each team had in the 2020-2021 season on the y-axis and team’s total assists on the x-axis</p>
 <pre class="r"><code>winlosslogs &lt;- logs21 %&gt;% 
   mutate(
     winloss = case_when(
