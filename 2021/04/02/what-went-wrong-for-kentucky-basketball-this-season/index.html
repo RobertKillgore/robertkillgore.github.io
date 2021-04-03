@@ -104,7 +104,8 @@
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
 <p>To get started, I’m going to look at cumulative point differential for the teams in the SEC. You would think a team with a positive point differential should be at least .500 while a team with a negative point differential should be below .500.</p>
 <pre class="r"><code>sec &lt;- logs21 %&gt;% 
-  mutate(pointdifferential = TeamScore - OpponentScore) %&gt;% group_by(Team) %&gt;% mutate(CumPointDiff = cumsum(pointdifferential)) %&gt;% filter(Conference == &quot;SEC&quot;)</code></pre>
+mutate(pointdifferential = TeamScore - OpponentScore) %&gt;% 
+group_by(Team) %&gt;% mutate(CumPointDiff = cumsum(pointdifferential)) %&gt;% filter(Conference == &quot;SEC&quot;)</code></pre>
 <p>Now that we got the cumulative point differential for each team in the SEC, let’s compare Kentucky to the 22-6 Arkansas Razorbacks and the 13-14 Auburn Tigers.</p>
 <pre class="r"><code>uk &lt;- sec %&gt;% filter(Team == &quot;Kentucky&quot;) 
 ark &lt;- sec %&gt;% filter(Team == &quot;Arkansas&quot;)
@@ -215,7 +216,7 @@ labs(x=&quot;Date&quot;, y=&quot;TeamFGPCT&quot;, title=&quot;Kentucky was not a
 <pre class="r"><code>library(tidyverse)
 library(ggbeeswarm)
 library(ggrepel)</code></pre>
-<pre class="r"><code>offensiverebounds &lt;- logs21 %&gt;% group_by(Team, Conference) %&gt;% summarise(totaloffensiverebounds= sum(TeamOffRebounds)) %&gt;% filter(Conference== &quot;Big Ten&quot;| Conference== &quot;SEC&quot;| Conference== &quot;Big 12&quot;| Conference== &quot;ACC&quot;| Conference== &quot;Pac-12&quot;) %&gt;% ungroup() </code></pre>
+<pre class="r"><code>offensiverebounds &lt;- logs21 %&gt;% group_by(Team, Conference) %&gt;% summarise(totaloffensiverebounds= sum(TeamOffRebounds)) %&gt;% filter(Conference==&quot;Big Ten&quot;| Conference== &quot;SEC&quot;| Conference== &quot;Big 12&quot;| Conference== &quot;ACC&quot;| Conference== &quot;Pac-12&quot;) </code></pre>
 <pre><code>## `summarise()` has grouped output by &#39;Team&#39;. You can override using the `.groups` argument.</code></pre>
 <p>Next, we have to filter out for Kentucky. Then we can create a beeswarm plot comparing power five teams in offensive rebounds</p>
 <pre class="r"><code>uk &lt;- offensiverebounds %&gt;% filter(Team== &quot;Kentucky&quot;)</code></pre>
