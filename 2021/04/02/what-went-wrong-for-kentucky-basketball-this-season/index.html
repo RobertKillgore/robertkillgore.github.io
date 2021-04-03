@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">6 min read</span>
+    <span class="article-duration">9 min read</span>
     
 
     <h1 class="article-title">What went wrong for Kentucky basketball this season? </h1>
@@ -219,13 +219,15 @@ library(ggrepel)</code></pre>
 <pre><code>## `summarise()` has grouped output by &#39;Team&#39;. You can override using the `.groups` argument.</code></pre>
 <p>Next, we have to filter out for Kentucky. Then we create a beeswarm plot comparing power five teams in offensive rebounds</p>
 <pre class="r"><code>uk &lt;- offensiverebounds %&gt;% filter(Team== &quot;Kentucky&quot;)</code></pre>
-<pre class="r"><code>ggplot() + geom_beeswarm(data=offensiverebounds, groupOnX=TRUE, aes(x=Conference, y=totaloffensiverebounds), color=&quot;grey&quot;) +  geom_point(data=uk, aes(x=Conference, y=totaloffensiverebounds), color=&quot;blue&quot;)  +
+<pre class="r"><code>ggplot() + geom_text_repel(
+    data=uk, 
+    aes(x=Conference, y=totaloffensiverebounds, label=Team))+ geom_beeswarm(data=offensiverebounds, groupOnX=TRUE, aes(x=Conference, y=totaloffensiverebounds), color=&quot;grey&quot;) +  geom_point(data=uk, aes(x=Conference, y=totaloffensiverebounds), color=&quot;blue&quot;)+
   labs(
     x=&quot;Date&quot;, 
     y=&quot;Total Offensive Rebounds&quot;, 
     title=&quot;Kentucky Was Not a Bad Offensive Rebounding Team&quot;, 
     subtitle=&quot;The Wildcats were among the upper half of the SEC in offensive rebounds&quot;, 
-    caption=&quot;Source: Sports-Reference.com | By Robert Killgore&quot;) +
+    caption=&quot;Source: NCAA | By Robert Killgore&quot;) +
   theme_minimal() +  theme(
     plot.title = element_text(size = 15, face = &quot;bold&quot;),
     axis.title = element_text(size = 10), 
@@ -233,6 +235,61 @@ library(ggrepel)</code></pre>
     panel.grid.minor = element_blank()
     ) </code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>With the new information, we have let’s see how Kentucky underperformed this season. Let’s look at assists, a good metric for a team’s success. First let’s set up a scatterplot with the amount of wins each team had this year on the y-axis and team’s total assists on the x-axis</p>
+<pre class="r"><code>winlosslogs &lt;- logs21 %&gt;% 
+  mutate(
+    winloss = case_when(
+      grepl(&quot;W&quot;, W_L) ~ 1, 
+      grepl(&quot;L&quot;, W_L) ~ 0)
+)</code></pre>
+<pre class="r"><code>dimes &lt;- winlosslogs %&gt;% 
+  group_by(Team) %&gt;% 
+  summarise(
+    Wins = sum(winloss), 
+    TotalAssists = sum(TeamAssists)
+    )</code></pre>
+<p>Now we can create a scatterplot that shows the relationship between total assists and team wins. First, we have to find out what the R squared value is, which tells us how much assists factor in winning</p>
+<pre class="r"><code>fit &lt;- lm(Wins ~ TotalAssists, data = dimes)
+summary(fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Wins ~ TotalAssists, data = dimes)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.6041  -2.5473   0.2046   2.7052  10.0404 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -3.630841   0.843546  -4.304 2.19e-05 ***
+## TotalAssists  0.050618   0.002646  19.133  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.678 on 345 degrees of freedom
+## Multiple R-squared:  0.5148, Adjusted R-squared:  0.5134 
+## F-statistic: 366.1 on 1 and 345 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The R squared value is 0.5134, which means that assists predicts about 51.34 percent of the variance in wins. That is a lot. I can also find out how teams underperformed or overperformed their win totals from the coefficients found above and the amount of assists a team had using the equation y=mx +b. Plugging in the numbers for Kentucky, it would like .050618 times 312(number of assists they had) + -3.630841. That equals 12.16, which means according to our model Kentucky should have won 12 games in the 2020-2021 season just looking at total assists. Let’s see how this looks in a scatterplot this season among teams in the NCAA this season, Kentucky the blue dot.</p>
+<pre class="r"><code>uk &lt;- dimes %&gt;% filter(Team == &quot;Kentucky&quot;)</code></pre>
+<pre class="r"><code>ggplot() +
+  geom_point(data=dimes, aes(x=TotalAssists, y=Wins))  +
+  geom_smooth(data=dimes, aes(x=TotalAssists, y=Wins), method=&quot;lm&quot;) +
+  geom_point(data=uk, aes(x=TotalAssists, y=Wins), color=&quot;blue&quot;) +
+  labs(
+    x=&quot;TotalAssists&quot;, 
+    y=&quot;Team&quot;, 
+    title=&quot;Kentucky Underperformed Their Expected Win Total in Assists This Season &quot;, 
+    subtitle=&quot;The Wildcats should have won 12 games just looking at total assists &quot;, 
+    caption=&quot;Source: NCAA | By Robert Killgore&quot;) +
+  theme_minimal() +  theme(
+    plot.title = element_text(size = 15, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10), 
+    plot.subtitle = element_text(size=11), 
+    panel.grid.minor = element_blank()
+    ) </code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>Kentucky played better than what their record said, the data showing they should have finished with 12 or 13 wins. It will be interesting to see if this year was just a fluke or a the start of the end of the Calipari Era in Lexington.</p>
 
     </div>
   </article>
