@@ -76,7 +76,7 @@
 <script src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/header-attrs/header-attrs.js"></script>
 
 
-<p>The bluebloods of college basketball were not their usual selves in the 2020-2021 season, Kentucky being the most disappointing of them all. The Wildcats went 9-16 this year and finished 8-9 in conference play, missing the NCAA tournament for the first time since 2013. To begin looking at what went wrong for Kentucky this season, let’s start by grabbing the games logs for each team of the 2020-2021 season.</p>
+<p>The bluebloods of college basketball were not their usual selves in the 2020-2021 season, Kentucky being the most disappointing of them all. The Wildcats went 9-16 in the 2020-2021 season and finished 8-9 in conference play, missing the NCAA tournament for the first time since 2013. To begin looking at what went wrong for Kentucky this season, let’s start by grabbing the games logs for each team of the 2020-2021 season.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
@@ -131,7 +131,7 @@ aub &lt;- sec %&gt;% filter(Team== &quot;Auburn&quot;)</code></pre>
     panel.grid.minor = element_blank()
     ) </code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
-Kentucky ended up finishing the year with a positive point differential, something not typically seen in a 9-16 team. One reason for this is the Wildcats were 2-8 in games decided by 4 points or less, including a one point loss against Mississippi State in the SEC tournament. Say they go 5-5 instead, Kentucky ends up 12-13, a slightly below-average team.</p>
+Kentucky ended up finishing the season with a positive point differential, something not typically seen in a 9-16 team. One reason for this is the Wildcats were 2-8 in games decided by 4 points or less, including a one point loss against Mississippi State in the SEC tournament. Say they go 5-5 instead, Kentucky ends up 12-13, a slightly below-average team.</p>
 <p>Now, let’s look at Kentucky’s total turnovers and steals compared to the rest of the SEC. If a team forces a lot of turnovers in a given game, they steal away their opponents precious possessions and increase the likelihood of winning that game. Let’s see how well Kentucky kept care of the ball and how well they wrecked havoc on the defensive end.</p>
 <pre class="r"><code>library(tidyverse)
 library(ggalt)</code></pre>
@@ -173,7 +173,7 @@ library(ggalt)</code></pre>
     panel.grid.minor = element_blank()
     ) </code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-9-1.png" width="672" />
-Kentucky ended up the year with less turnovers than top teams like Alabama and Arkansas, but had far less steals than them. Teams that made the tournament like LSU, Tennessee, and Alabama lines from steals and turnovers were smaller than Kentucky’s, showing how important turnover differential is to winning.</p>
+Kentucky ended up the year with less turnovers than top teams like Alabama and Arkansas, but had far less steals than them. Teams that made the tournament like LSU, Tennessee, and Alabama lines between steals and turnovers were smaller than Kentucky’s, showing how important turnover differential is to winning.</p>
 <p>Now, let’s jump to field goal percentage and compare Kentucky’s field goal shooting percentage to the rest of the power five teams. In the John Calipari era, Kentucky has had elite shooters like Devin Booker, Tyler Herro, and Malik Monk. Freshman guard Brandon Boston Jr was supposed to be that guy, but finished the season shooting 30% from three and shooting 35.5% from the field.</p>
 <pre class="r"><code>logs21 &lt;- read_csv(&quot;logs21.csv&quot;)</code></pre>
 <pre><code>## 
@@ -211,13 +211,13 @@ labs(x=&quot;Date&quot;, y=&quot;TeamFGPCT&quot;, title=&quot;Kentucky was not a
     ) </code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Besides the spike in early January, Kentucky was constantly below the power five average most of the season. Not exactly a winning formula.</p>
-<p>Now, let’s see where Kentucky ranked in the SEC in total offensive rebounds and compare them with th power five. More offensive rebounds should lead to teams with more chances to score</p>
+<p>Now, let’s see where Kentucky ranked in the SEC in total offensive rebounds and compare them with the power five teams. More offensive rebounds should give teams more chances to score</p>
 <pre class="r"><code>library(tidyverse)
 library(ggbeeswarm)
 library(ggrepel)</code></pre>
 <pre class="r"><code>offensiverebounds &lt;- logs21 %&gt;% group_by(Team, Conference) %&gt;% summarise(totaloffensiverebounds= sum(TeamOffRebounds)) %&gt;% filter(Conference== &quot;Big Ten&quot;| Conference== &quot;SEC&quot;| Conference== &quot;Big 12&quot;| Conference== &quot;ACC&quot;| Conference== &quot;Pac-12&quot;) %&gt;% ungroup() </code></pre>
 <pre><code>## `summarise()` has grouped output by &#39;Team&#39;. You can override using the `.groups` argument.</code></pre>
-<p>Next, we have to filter out for Kentucky. Then we create a beeswarm plot comparing power five teams in offensive rebounds</p>
+<p>Next, we have to filter out for Kentucky. Then we can create a beeswarm plot comparing power five teams in offensive rebounds</p>
 <pre class="r"><code>uk &lt;- offensiverebounds %&gt;% filter(Team== &quot;Kentucky&quot;)</code></pre>
 <pre class="r"><code>ggplot() + geom_text_repel(
     data=uk, 
@@ -235,7 +235,7 @@ library(ggrepel)</code></pre>
     panel.grid.minor = element_blank()
     ) </code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<p>With the new information, we have let’s see how Kentucky underperformed this season. Let’s look at assists, a good metric for a team’s success. First let’s set up a scatterplot with the amount of wins each team had this year on the y-axis and team’s total assists on the x-axis</p>
+<p>With the new information we have let’s see how much Kentucky underperformed this season. Let’s look at assists, a good metric for a team’s success. First let’s set up a scatterplot with the amount of wins each team had this year on the y-axis and team’s total assists on the x-axis</p>
 <pre class="r"><code>winlosslogs &lt;- logs21 %&gt;% 
   mutate(
     winloss = case_when(
@@ -269,7 +269,7 @@ summary(fit)</code></pre>
 ## Residual standard error: 3.678 on 345 degrees of freedom
 ## Multiple R-squared:  0.5148, Adjusted R-squared:  0.5134 
 ## F-statistic: 366.1 on 1 and 345 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>The R squared value is 0.5134, which means that assists predicts about 51.34 percent of the variance in wins. That is a lot. I can also find out how teams underperformed or overperformed their win totals from the coefficients found above and the amount of assists a team had using the equation y=mx +b. Plugging in the numbers for Kentucky, it would like .050618 times 312(number of assists they had) + -3.630841. That equals 12.16, which means according to our model Kentucky should have won 12 games in the 2020-2021 season just looking at total assists. Let’s see how this looks in a scatterplot this season among teams in the NCAA this season, Kentucky the blue dot.</p>
+<p>The R squared value is 0.5134, which means that assists predicts about 51.34 percent of the variance in wins. That’s a lot. I can also find out how teams underperformed or overperformed their win totals from the coefficients found above and the amount of assists a team had using the equation y=mx +b. Plugging in the numbers for Kentucky, it would like .050618 times 312(number of assists they had) + -3.630841. That equals 12.16, which means according to our model Kentucky should have won 12 games in the 2020-2021 season just looking at total assists. Let’s see how this looks in a scatterplot this season among teams in the NCAA this season, Kentucky the blue dot.</p>
 <pre class="r"><code>uk &lt;- dimes %&gt;% filter(Team == &quot;Kentucky&quot;)</code></pre>
 <pre class="r"><code>ggplot() +
   geom_point(data=dimes, aes(x=TotalAssists, y=Wins))  +
@@ -282,14 +282,14 @@ summary(fit)</code></pre>
     subtitle=&quot;The Wildcats should have won 12 games just looking at total assists &quot;, 
     caption=&quot;Source: NCAA | By Robert Killgore&quot;) +
   theme_minimal() +  theme(
-    plot.title = element_text(size = 15, face = &quot;bold&quot;),
+    plot.title = element_text(size = 13, face = &quot;bold&quot;),
     axis.title = element_text(size = 10), 
     plot.subtitle = element_text(size=11), 
     panel.grid.minor = element_blank()
     ) </code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
-<p>Kentucky played better than what their record said, the data showing they should have finished with 12 or 13 wins. It will be interesting to see if this year was just a fluke or a the start of the end of the Calipari Era in Lexington.</p>
+<p>Kentucky played better than what their record said, the data showing they played like an average team. It will be interesting to see if this year was just a fluke or the start of the end of the Calipari Era in Lexington.</p>
 
     </div>
   </article>
