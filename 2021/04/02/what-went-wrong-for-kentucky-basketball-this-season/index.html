@@ -161,7 +161,7 @@ library(ggalt)</code></pre>
     colour_xend = &quot;purple&quot;) + 
   theme_minimal() +
   labs(
-    x=&quot;Date&quot;, 
+    x=&quot;Turnovers and Steals&quot;, 
     y=&quot;reorder(Team, possessionslost)&quot;, 
     title=&quot;Kentucky couldn&#39;t force enough turnovers to make up their own&quot;, 
     subtitle=&quot;The Wildcats were middle of the pack in turnovers but 2nd to last in steals in the SEC&quot;, 
@@ -212,7 +212,7 @@ library(ggrepel)</code></pre>
     data=uk, 
     aes(x=Conference, y=totaloffensiverebounds, label=Team))+ geom_beeswarm(data=offensiverebounds, groupOnX=TRUE, aes(x=Conference, y=totaloffensiverebounds), color=&quot;grey&quot;) +  geom_point(data=uk, aes(x=Conference, y=totaloffensiverebounds), color=&quot;blue&quot;)+
   labs(
-    x=&quot;Date&quot;, 
+    x=&quot;Conference&quot;, 
     y=&quot;Total Offensive Rebounds&quot;, 
     title=&quot;Kentucky Was Not a Bad Offensive Rebounding Team&quot;, 
     subtitle=&quot;The Wildcats were among the upper half of the SEC in offensive rebounds&quot;, 
