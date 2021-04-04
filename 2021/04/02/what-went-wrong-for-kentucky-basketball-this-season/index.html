@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">9 min read</span>
+    <span class="article-duration">8 min read</span>
     
 
     <h1 class="article-title">What went wrong for Kentucky basketball this season? </h1>
@@ -133,7 +133,7 @@ aub &lt;- sec %&gt;% filter(Team== &quot;Auburn&quot;)</code></pre>
     ) </code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 Kentucky ended up finishing the season with a positive point differential, something not typically seen in a 9-16 team. One reason for this is the Wildcats were 2-8 in games decided by 4 points or less, including a one point loss against Mississippi State in the SEC tournament. Say they go 5-5 instead, Kentucky ends up 12-13, a slightly below-average team.</p>
-<p>Now, let’s look at Kentucky’s total turnovers and steals compared to the rest of the SEC. If a team forces a lot of turnovers in a given game, they steal away their opponents precious possessions and increase the likelihood of winning that game. Let’s see how well Kentucky kept care of the ball and how well they wrecked havoc on the defensive end.</p>
+<p>Now, let’s look at Kentucky’s total turnovers and steals compared to the rest of the SEC. If a team forces a lot of turnovers in a given game, they steal away their opponents precious possessions and increase the likelihood of winning that game. Let’s see how well Kentucky kept care of the ball and how well they wreaked havoc on the defensive end.</p>
 <pre class="r"><code>library(tidyverse)
 library(ggalt)</code></pre>
 <pre><code>## Registered S3 methods overwritten by &#39;ggalt&#39;:
@@ -174,24 +174,8 @@ library(ggalt)</code></pre>
     panel.grid.minor = element_blank()
     ) </code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-9-1.png" width="672" />
-Kentucky ended up the year with less turnovers than top teams like Alabama and Arkansas, but had far less steals than them. Teams that made the tournament like LSU, Tennessee, and Alabama lines between steals and turnovers were smaller than Kentucky’s, showing how important turnover differential is to winning.</p>
+Kentucky ended up the year with fewer turnovers than top teams like Alabama and Arkansas, but had far fewer steals than them. Teams that made the tournament like LSU, Tennessee, and Alabama, their lines between steals and turnovers were smaller than Kentucky’s. This shows how important turnover differential is to winning.</p>
 <p>Now, let’s jump to field goal percentage and compare Kentucky’s field goal shooting percentage to the rest of the power five teams. In the John Calipari era, Kentucky has had elite shooters like Devin Booker, Tyler Herro, and Malik Monk. Freshman guard Brandon Boston Jr was supposed to be that guy, but finished the season shooting 30% from three and shooting 35.5% from the field.</p>
-<pre class="r"><code>logs21 &lt;- read_csv(&quot;logs21.csv&quot;)</code></pre>
-<pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   .default = col_double(),
-##   Season = col_character(),
-##   Date = col_date(format = &quot;&quot;),
-##   TeamFull = col_character(),
-##   Opponent = col_character(),
-##   HomeAway = col_character(),
-##   W_L = col_character(),
-##   URL = col_character(),
-##   Conference = col_character(),
-##   Team = col_character()
-## )
-## ℹ Use `spec()` for the full column specifications.</code></pre>
 <p>I only care about the power five teams, so let’s get rid of the non-power five teams</p>
 <pre class="r"><code>powerfive &lt;- c(&quot;SEC&quot;, &quot;Big Ten&quot;, &quot;Pac-12&quot;, &quot;Big 12&quot;, &quot;ACC&quot;)</code></pre>
 <pre class="r"><code>powerfive &lt;- logs21 %&gt;% filter(Conference %in% powerfive)</code></pre>
@@ -240,7 +224,7 @@ library(ggrepel)</code></pre>
     panel.grid.minor = element_blank()
     ) </code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<p>With the new information we have let’s see how much Kentucky underperformed this season. Let’s look at assists, a good metric for a team’s success. First let’s set up a scatterplot with the amount of wins each team had in the 2020-2021 season on the y-axis and team’s total assists on the x-axis</p>
+<p>With the new information we have, let’s see how much Kentucky underperformed this season. Let’s look at assists, a good metric for a team’s success. First let’s set up a scatterplot with the amount of wins each team had in the 2020-2021 season on the y-axis and team’s total assists on the x-axis.</p>
 <pre class="r"><code>winlosslogs &lt;- logs21 %&gt;% 
   mutate(
     winloss = case_when(
@@ -253,7 +237,7 @@ library(ggrepel)</code></pre>
     Wins = sum(winloss), 
     TotalAssists = sum(TeamAssists)
     )</code></pre>
-<p>Now we can create a scatterplot that shows the relationship between total assists and team wins. First, we have to find out what the R squared value is, which tells us how much assists factor in winning</p>
+<p>Now we can create a scatterplot that shows the relationship between total assists and team wins. First, we have to find out what the R squared value is, which tells us how much assists factor in winning.</p>
 <pre class="r"><code>fit &lt;- lm(Wins ~ TotalAssists, data = dimes)
 summary(fit)</code></pre>
 <pre><code>## 
@@ -294,7 +278,7 @@ summary(fit)</code></pre>
     ) </code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/2021/04/02/what-went-wrong-for-kentucky-basketball-this-season/index_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
-<p>Kentucky played better than what their record said, the data showing they played like an average team. It will be interesting to see if this year was just a fluke or the start of the end of the Calipari Era in Lexington.</p>
+<p>The data with Kentucky’s cumulative point differential, offensive rebounds, and assists show Kentucky played better than what their final record indicated. They should have finished the season with 12 to 13 wins like Auburn. It will be interesting to see how the Wildcats and the rest of the bluebloods perform next season.</p>
 
     </div>
   </article>
