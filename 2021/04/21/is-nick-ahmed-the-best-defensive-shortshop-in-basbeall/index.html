@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">4 min read</span>
+    <span class="article-duration">5 min read</span>
     
 
     <h1 class="article-title">Is Nick Ahmed the best defensive shortshop in baseball?</h1>
@@ -120,7 +120,7 @@ library(ggbeeswarm)</code></pre>
      theme(
     plot.title = element_text(size = 14, face = &quot;bold&quot;),
     axis.title = element_text(size = 10), 
-    plot.subtitle = element_text(size= 12), 
+    plot.subtitle = element_text(size= 8), 
     panel.grid.minor = element_blank()
   )</code></pre>
 <p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
@@ -150,6 +150,45 @@ library(ggbeeswarm)</code></pre>
   )</code></pre>
 <p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 Ahmed finished the 2018 season with a .985 fielding percentage in 2018 and a .979 fielding percentage, right among the elite shortstops. The Diamondbacks had the luxury of penciling Ahmed in the lineup everyday, knowing he would make few mistakes. The next thing we will look are total innings played, total chanches, and total errors in a bubble chart.</p>
+<p>The first thing we will do to create the bubble chart is to filter for the players who have played over 420 innings to account for the 2020 season like we did before. Like the Defensive Runs Saved chart, Ahmed’s 2017 season will not be included.</p>
+<pre class="r"><code>goodfielders &lt;- test %&gt;% filter(Inn&gt;420) %&gt;% group_by(Name, Season)</code></pre>
+<p>Next, we will add up the total innings played, total chances and total errors from eligible players from 2018, 2019, and 2020.</p>
+<pre class="r"><code>goodfielders &lt;- test %&gt;% filter(Inn&gt;420) %&gt;% group_by(Name, Season) %&gt;%  summarise(
+    TotalInningsPlayed = sum(Inn), 
+    TotalChanches = sum(Ch), 
+    TotalErrors = sum(Errors))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;Name&#39;. You can override using the `.groups` argument.</code></pre>
+<pre class="r"><code>ggplot() + 
+  geom_point(
+    data=goodfielders, 
+    aes(x=TotalChanches, y=TotalInningsPlayed, size=TotalErrors)
+    )</code></pre>
+<p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre class="r"><code>ahmed &lt;-goodfielders %&gt;% filter(Name==&quot;Nick Ahmed&quot;)</code></pre>
+<pre class="r"><code>ggplot() + 
+  geom_point(
+    data=goodfielders, 
+    aes(x=TotalChanches, y=TotalInningsPlayed, size=TotalErrors), 
+    color=&quot;grey&quot;)  + 
+  geom_point(
+    data=ahmed, 
+    aes(x=TotalChanches, y=TotalInningsPlayed, size=TotalErrors), 
+    color=&quot;red&quot;) + 
+  geom_vline(xintercept = 403.966665455) + 
+  geom_hline(yintercept = 1101.97712545) +
+   geom_text(aes(x=290, y=375, label=&quot;Nick Ahmed, 2020&quot;), color=&quot;black&quot;) +
+  geom_text(aes(x=650, y=1150, label=&quot;Nick Ahmed, 2018&quot;), color=&quot;black&quot;) +
+  geom_text(aes(x=660, y=1510, label=&quot;Nick Ahmed, 2019&quot;), color=&quot;black&quot;) +
+  labs(x=&quot;Total Chanches&quot;, y=&quot;Total Innings Played&quot;, title=&quot;Nick Ahmed Rarely Commits Errors&quot;, subtitle=&quot;Ahmed Errors are Few and Far Between Despite Playing a Lot of Innings&quot;, caption=&quot;Source: Sports-Reference.com | By Robert Killgore&quot;) +
+  theme_minimal() + 
+     theme(
+    plot.title = element_text(size = 15, face = &quot;bold&quot;),
+    axis.title = element_text(size = 12), 
+    plot.subtitle = element_text(size=8), 
+    panel.grid.minor = element_blank()
+  )</code></pre>
+<p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+For the last three seasons, Ahmed has committed the fewest errors among everyday shortshops. The most he had in one season was 13 in 2019, where he played over 1300 innings and still won a Gold Glove. Now that we have shown Ahmed is one of the most trustworthy shortshops in the MLB, let’s see how many runs Ahmed has been worth using the fielding metric Rtot.</p>
 
     </div>
   </article>
