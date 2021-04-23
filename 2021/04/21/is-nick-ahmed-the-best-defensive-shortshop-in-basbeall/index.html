@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">3 min read</span>
+    <span class="article-duration">4 min read</span>
     
 
     <h1 class="article-title">Is Nick Ahmed the best defensive shortshop in baseball?</h1>
@@ -94,7 +94,8 @@
 ##   grobWidth.absoluteGrob  ggplot2
 ##   grobX.absoluteGrob      ggplot2
 ##   grobY.absoluteGrob      ggplot2</code></pre>
-<pre class="r"><code>library(ggrepel)</code></pre>
+<pre class="r"><code>library(ggrepel)
+library(ggbeeswarm)</code></pre>
 <p>First, let’s load up the data</p>
 <pre class="r"><code>MLBshortshops &lt;- shortstops17_20_copy &lt;- read_csv(&quot;shortstops17-20 copy.csv&quot;)</code></pre>
 <pre><code>## 
@@ -117,13 +118,38 @@
    labs(x=&quot;Games Played&quot;, y=&quot;Defensive Runs Saved&quot;, title=&quot;Nick Ahmed Saves More Runs than Almost Anybody&quot;, subtitle=&quot;Ahmed led the League in Defensive Runs Saved in 2018 and 2019, finishing in the upper half in 2020&quot;, caption=&quot;Source: Sports-Reference.com | By Robert Killgore&quot;) +
   theme_minimal() + 
      theme(
-    plot.title = element_text(size = 13, face = &quot;bold&quot;),
+    plot.title = element_text(size = 14, face = &quot;bold&quot;),
     axis.title = element_text(size = 10), 
-    plot.subtitle = element_text(size= 11), 
+    plot.subtitle = element_text(size= 12), 
     panel.grid.minor = element_blank()
   )</code></pre>
 <p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>In 2018 and 2019, Ahmed led the League in Defensive Runs Saved. Not surprisingly, he won his two Gold Gloves in 2018 and 2019. Even in a shortened 2020 season, he was still among the upper half of the league in Defensive Runs Saved. Interestingly enough, Andrelton Simmons actually had the highest DRS in the past foru years with a whopping 41 in 2017.</p>
+<p>In 2018 and 2019, Ahmed led the League in Defensive Runs Saved. Not surprisingly, he won his two Gold Gloves in 2018 and 2019. Even in a shortened 2020 season, he was still among the upper half of the league in Defensive Runs Saved. Interestingly enough, Andrelton Simmons actually had the highest DRS in the past foru years with a whopping 41 in 2017. Next, let’s look at fielding percentage.</p>
+<p>The better fielding percentage a player has, the less errors he commits. To get an idea on where Ahmed’s fielding percentage ranks among the everyday shortstops, let’s look at data from 2018 and 2019. In those two seasons he played over 150 games and played well over 1,000 innings.</p>
+<pre class="r"><code>eligibleplayers &lt;- test %&gt;% filter(Inn&gt;1000) %&gt;% filter(Season==&quot;2018&quot;| Season== &quot;2019&quot;) %&gt;% mutate(Season=factor(Season,levels = c(&quot;2018&quot;, &quot;2019&quot;)))</code></pre>
+<pre class="r"><code>ahmed &lt;- eligibleplayers %&gt;% filter(Name== &quot;Nick Ahmed&quot;)</code></pre>
+<pre class="r"><code>ggplot() + 
+  geom_beeswarm(
+    data=eligibleplayers, 
+    groupOnX=TRUE, 
+    aes(x=Season, y=`Fld%`), color=&quot;grey&quot;) + 
+  geom_beeswarm(
+    data=ahmed, 
+    groupOnX=TRUE, 
+    aes(x=Season, y=`Fld%`), color=&quot;red&quot;) +
+  geom_text_repel(
+    data=ahmed, 
+    aes(x=Season, y=`Fld%`, label=Name)) +
+  labs(x=&quot;Season&quot;, y=&quot;FieldingPercent&quot;, title=&quot;Nick Ahmed is as Reliable as they come&quot;, subtitle=&quot; Ahmed was among the leaders in fielding percentage of shortshops who played over 1,000 innings played in 2018 and 2019&quot;, caption=&quot;Source: Sports-Reference.com | By Robert Killgore&quot;) +
+  theme_minimal() + 
+     theme(
+    plot.title = element_text(size = 13, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10), 
+    plot.subtitle = element_text(size=8), 
+    panel.grid.minor = element_blank()
+  )</code></pre>
+<p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+Ahmed finished the 2018 season with a .985 fielding percentage in 2018 and a .979 fielding percentage, right among the elite shortstops. The Diamondbacks had the luxury of penciling Ahmed in the lineup everyday, knowing he would make few mistakes. The next thing we will look are total innings played, total chanches, and total errors in a bubble chart.</p>
 
     </div>
   </article>
