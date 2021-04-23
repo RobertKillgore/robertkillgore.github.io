@@ -124,7 +124,7 @@ library(ggbeeswarm)</code></pre>
     panel.grid.minor = element_blank()
   )</code></pre>
 <p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>In 2018 and 2019, Ahmed led the League in Defensive Runs Saved. Not surprisingly, he won his two Gold Gloves in 2018 and 2019. Even in a shortened 2020 season, he was still among the upper half of the league in Defensive Runs Saved. Interestingly enough, Andrelton Simmons actually had the highest DRS in the past foru years with a whopping 41 in 2017. Next, let’s look at fielding percentage.</p>
+<p>In 2018 and 2019, Ahmed led the League in Defensive Runs Saved. Not surprisingly, he won his two Gold Gloves in 2018 and 2019. Even in a shortened 2020 season, he was still among the upper half of the league in Defensive Runs Saved. Interestingly enough, Andrelton Simmons actually had the highest DRS in the past four years with a whopping 41 in 2017. Next, let’s look at fielding percentage.</p>
 <p>The better fielding percentage a player has, the less errors he commits. To get an idea on where Ahmed’s fielding percentage ranks among the everyday shortstops, let’s look at data from 2018 and 2019. In those two seasons he played over 150 games and played well over 1,000 innings.</p>
 <pre class="r"><code>eligibleplayers &lt;- test %&gt;% filter(Inn&gt;1000) %&gt;% filter(Season==&quot;2018&quot;| Season== &quot;2019&quot;) %&gt;% mutate(Season=factor(Season,levels = c(&quot;2018&quot;, &quot;2019&quot;)))</code></pre>
 <pre class="r"><code>ahmed &lt;- eligibleplayers %&gt;% filter(Name== &quot;Nick Ahmed&quot;)</code></pre>
