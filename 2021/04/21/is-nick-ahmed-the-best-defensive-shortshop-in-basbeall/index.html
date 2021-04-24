@@ -149,7 +149,7 @@ library(ggbeeswarm)</code></pre>
     panel.grid.minor = element_blank()
   )</code></pre>
 <p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
-Ahmed finished the 2018 season with a .985 fielding percentage in 2018 and a .979 fielding percentage, right among the elite shortstops. The Diamondbacks had the luxury of penciling Ahmed in the lineup everyday, knowing he would make few mistakes. The next thing we will look are total innings played, total chanches, and total errors in a bubble chart.</p>
+Ahmed finished the 2018 season with a .985 fielding percentage in 2018 and a .979 fielding percentage, right among the elite shortstops. The Diamondbacks had the luxury of penciling Ahmed in the lineup everyday, knowing he would make few mistakes. The next thing we will look are total innings played, total chances, and total errors in a bubble chart.</p>
 <p>The first thing we will do to create the bubble chart is to filter for the players who have played over 420 innings to account for the 2020 season. Like the Defensive Runs Saved chart, Ahmed’s 2017 season will not be included.</p>
 <pre class="r"><code>goodfielders &lt;- test %&gt;% filter(Inn&gt;420) %&gt;% group_by(Name, Season)</code></pre>
 <p>Next, we will add up the total innings played, total chances and total errors from eligible players from 2018, 2019, and 2020.</p>
