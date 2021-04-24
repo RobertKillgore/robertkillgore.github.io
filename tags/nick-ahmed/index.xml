@@ -13,7 +13,7 @@
       <pubDate>Wed, 21 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/</guid>
-      <description>Nick Ahmed debuted for the Arizona Diamondbacks in 2014, blossoming into a two time Gold Glove winner and becoming the Diamondbacks everyday shortshop. Let’s see if he is the best defensive shortshop in baseball using shortshop fielding data from the last four seasons.
+      <description>Nick Ahmed debuted for the Arizona Diamondbacks in 2014, blossoming into a two time Gold Glove winner and becoming the Diamondbacks everyday shortstop. Let’s see if he is the best defensive shortshop in baseball using shortstop fielding data from the last four seasons.
 library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ── ## ✓ ggplot2 3.3.3 ✓ purrr 0.3.4 ## ✓ tibble 3.1.1 ✓ dplyr 1.0.5 ## ✓ tidyr 1.</description>
     </item>
     
