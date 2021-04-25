@@ -107,7 +107,7 @@ library(ggbeeswarm)</code></pre>
 ##   Lg = col_character()
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
-<p>Let’s first look at defensive runs saved, a defensive metric which measures the number of runs a player saved or cost his team on defense. The best fielders typically range from 15-20. On our data set from baseball-reference, it is labeled as Rdrs. First I’m going to only include players who played over 50 games to include the shortened 2020 season. Ahmed’s 2017 season will not be included because he was limited to 47 games played after breaking his wrist midway through the season.</p>
+<p>Let’s first look at defensive runs saved, a defensive metric which measures the number of runs a player saved or cost his team on defense. The best fielders typically range from 15-20. On our data set from Baseball-Reference, it is labeled as Rdrs. First I’m going to only include players who played over 50 games to include the shortened 2020 season. Ahmed’s 2017 season will not be included because he was limited to 47 games played after breaking his wrist midway through the season.</p>
 <pre class="r"><code>Rdrs &lt;- test %&gt;% filter(G&gt;50) %&gt;% group_by(Name, Season)</code></pre>
 <pre class="r"><code>ahmed &lt;- Rdrs %&gt;% filter(Name==&quot;Nick Ahmed&quot;)</code></pre>
 <p>Next, we can create a scatterplot with the eligible players and their defensive runs saved number across the last four seasons</p>
@@ -115,7 +115,7 @@ library(ggbeeswarm)</code></pre>
   geom_text(aes(x=52, y=7, label=&quot;Nick Ahmed, 2020&quot;), color=&quot;black&quot;) +
   geom_text(aes(x=146, y=25, label=&quot;Nick Ahmed, 2018&quot;), color=&quot;black&quot;) +
   geom_text(aes(x=152, y=15, label=&quot;Nick Ahmed, 2019&quot;), color=&quot;black&quot;) +
-   labs(x=&quot;Games Played&quot;, y=&quot;Defensive Runs Saved&quot;, title=&quot;Nick Ahmed Saves More Runs than Almost Anybody&quot;, subtitle=&quot;Ahmed led the League in Defensive Runs Saved in 2018 and 2019, finishing in the upper half in 2020&quot;, caption=&quot;Source: Sports-Reference.com | By Robert Killgore&quot;) +
+   labs(x=&quot;Games Played&quot;, y=&quot;Defensive Runs Saved&quot;, title=&quot;Nick Ahmed Saves More Runs than Almost Anybody&quot;, subtitle=&quot;Ahmed led the League in Defensive Runs Saved in 2018 and 2019, finishing in the upper half in 2020&quot;, caption=&quot;Source: Baseball-Reference.com | By Robert Killgore&quot;) +
   theme_minimal() + 
      theme(
     plot.title = element_text(size = 14, face = &quot;bold&quot;),
@@ -140,7 +140,7 @@ library(ggbeeswarm)</code></pre>
   geom_text_repel(
     data=ahmed, 
     aes(x=Season, y=`Fld%`, label=Name)) +
-  labs(x=&quot;Season&quot;, y=&quot;FieldingPercentage&quot;, title=&quot;Nick Ahmed is as Reliable as they come&quot;, subtitle=&quot; Ahmed was among the leaders in fielding percentage of shortshops who played over 1,000 innings in 2018 and 2019&quot;, caption=&quot;Source: Sports-Reference.com | By Robert Killgore&quot;) +
+  labs(x=&quot;Season&quot;, y=&quot;FieldingPercentage&quot;, title=&quot;Nick Ahmed is as Reliable as they come&quot;, subtitle=&quot; Ahmed was among the leaders in fielding percentage of shortshops who played over 1,000 innings in 2018 and 2019&quot;, caption=&quot;Source: Baseball-Reference.com | By Robert Killgore&quot;) +
   theme_minimal() + 
      theme(
     plot.title = element_text(size = 13, face = &quot;bold&quot;),
@@ -149,7 +149,7 @@ library(ggbeeswarm)</code></pre>
     panel.grid.minor = element_blank()
   )</code></pre>
 <p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
-Ahmed finished the 2018 season with a .985 fielding percentage in 2018 and a .979 fielding percentage, right among the elite shortstops. The Diamondbacks had the luxury of penciling Ahmed in the lineup everyday, knowing he would make few mistakes. The next thing we will look are total innings played, total chances, and total errors in a bubble chart.</p>
+Ahmed finished the 2018 season with a .985 fielding percentage and a .979 fielding percentage in 2019, right among the elite shortstops. The Diamondbacks had the luxury of penciling Ahmed in the lineup everyday, knowing he would make few mistakes. The next thing we will look at are total innings played, total chances, and total errors in a bubble chart.</p>
 <p>The first thing we will do to create the bubble chart is to filter for the players who have played over 420 innings to account for the 2020 season. Like the Defensive Runs Saved chart, Ahmed’s 2017 season will not be included.</p>
 <pre class="r"><code>goodfielders &lt;- test %&gt;% filter(Inn&gt;420) %&gt;% group_by(Name, Season)</code></pre>
 <p>Next, we will add up the total innings played, total chances and total errors from eligible players from 2018, 2019, and 2020.</p>
@@ -173,7 +173,7 @@ Ahmed finished the 2018 season with a .985 fielding percentage in 2018 and a .97
    geom_text(aes(x=290, y=375, label=&quot;Nick Ahmed, 2020&quot;), color=&quot;black&quot;) +
   geom_text(aes(x=650, y=1150, label=&quot;Nick Ahmed, 2018&quot;), color=&quot;black&quot;) +
   geom_text(aes(x=660, y=1510, label=&quot;Nick Ahmed, 2019&quot;), color=&quot;black&quot;) +
-  labs(x=&quot;Total Chanches&quot;, y=&quot;Total Innings Played&quot;, title=&quot;Nick Ahmed Rarely Commits Errors&quot;, subtitle=&quot;Ahmed Errors are Few and Far Between Despite Playing a Lot of Innings&quot;, caption=&quot;Source: Sports-Reference.com | By Robert Killgore&quot;) +
+  labs(x=&quot;Total Chanches&quot;, y=&quot;Total Innings Played&quot;, title=&quot;Nick Ahmed Rarely Commits Errors&quot;, subtitle=&quot;Ahmed&#39;s Errors are Few and Far Between Despite Playing a Lot of Innings&quot;, caption=&quot;Source: Baseball-Reference.com | By Robert Killgore&quot;) +
   theme_minimal() + 
      theme(
     plot.title = element_text(size = 15, face = &quot;bold&quot;),
@@ -182,8 +182,8 @@ Ahmed finished the 2018 season with a .985 fielding percentage in 2018 and a .97
     panel.grid.minor = element_blank()
   )</code></pre>
 <p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-17-1.png" width="672" />
-For the last three seasons, Ahmed has committed the fewest errors among everyday shortshops. The most he had in one season was 13 in 2019, where he played over 1300 innings and still won a Gold Glove. Now that we have shown Ahmed is one of the most trustworthy shortshops in the MLB, let’s see how many runs Ahmed has been worth using the fielding metric Rtot.</p>
-<p>To see how valuable Ahmed has been on the field, I will be finding the top 10 in rtot from the last four seasons. We can do this through a bar chart</p>
+For the last three seasons, Ahmed has committed some of the fewest errors among everyday shortshops. The most he had in one season was 13 in 2019, when he played over 1300 innings and won a Gold Glove. Now that we have shown Ahmed is one of the most trustworthy shortshops in the MLB, let’s see how many runs Ahmed has been worth using the fielding metric Rtot.</p>
+<p>To see how valuable Ahmed has been on the field in the last four years, I will be finding the top 10 in rtot from the last four seasons. We can do this through a bar chart.</p>
 <pre class="r"><code>rtot &lt;- test %&gt;% 
   group_by(Season) %&gt;%
   arrange(desc(Rtot)) %&gt;% 
@@ -194,7 +194,7 @@ For the last three seasons, Ahmed has committed the fewest errors among everyday
 <pre><code>## Adding missing grouping variables: `Season`</code></pre>
 <pre class="r"><code>ggplot() + 
   geom_bar(data=rtot, aes(x=reorder(Name, Rtot), weight=Rtot)) + 
-  labs(x=&quot;Name&quot;, y=&quot;Rtot(Runs Worth)&quot;, title=&quot;Nick Ahmed has been worth more runs than anybody&quot;, subtitle=&quot;Ahmed was worth 13 runs in 2019 and 22 in 2018&quot;, caption=&quot;Source: Sports-Reference.com | By Robert Killgore&quot;) + theme_minimal() + 
+  labs(x=&quot;Name&quot;, y=&quot;Rtot(Runs Worth)&quot;, title=&quot;Nick Ahmed has been worth more runs than anybody&quot;, subtitle=&quot;Ahmed was worth 13 runs in 2019 and 22 in 2018&quot;, caption=&quot;Source: Baseball-Reference.com | By Robert Killgore&quot;) + theme_minimal() + 
   coord_flip() + 
      theme(
     plot.title = element_text(size = 14, face = &quot;bold&quot;),
@@ -203,7 +203,7 @@ For the last three seasons, Ahmed has committed the fewest errors among everyday
     panel.grid.minor = element_blank()
   ) </code></pre>
 <p><img src="/2021/04/21/is-nick-ahmed-the-best-defensive-shortshop-in-basbeall/index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p>Ahmed finished top 10 in rtot twice in the last four seasons, the only other shortstop accomplishing that feat besides Andrelton Simmons. This chart along with the others show how valuable and elite Ahmed is. The best defensive shortstop in baseball is in the desert and should be more well-known.</p>
+<p>Ahmed finished top 10 in rtot twice in the last four seasons, the only other shortstop accomplishing that feat besides Andrelton Simmons, who he beat in total Rtot. This chart along with the others show how valuable and elite Ahmed is. The best defensive shortstop in baseball is in the desert and should be more well-known.</p>
 
     </div>
   </article>
