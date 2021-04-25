@@ -107,6 +107,8 @@ library(ggbeeswarm)</code></pre>
 ##   Lg = col_character()
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>test &lt;- MLBshortshops %&gt;% mutate(Name=gsub(&quot;\\\\.*&quot;,&quot;&quot;,Name))</code></pre>
+<pre class="r"><code>test &lt;- test %&gt;% rename(Name=Name, Team=Tm, League=Lg, Assists=A, Errors=E, TotalPutouts=PO)</code></pre>
 <p>Let’s first look at defensive runs saved, a defensive metric which measures the number of runs a player saved or cost his team on defense. The best fielders typically range from 15-20. On our data set from Baseball-Reference, it is labeled as Rdrs. First I’m going to only include players who played over 50 games to include the shortened 2020 season. Ahmed’s 2017 season will not be included because he was limited to 47 games played after breaking his wrist midway through the season.</p>
 <pre class="r"><code>Rdrs &lt;- test %&gt;% filter(G&gt;50) %&gt;% group_by(Name, Season)</code></pre>
 <pre class="r"><code>ahmed &lt;- Rdrs %&gt;% filter(Name==&quot;Nick Ahmed&quot;)</code></pre>
@@ -240,6 +242,9 @@ For the last three seasons, Ahmed has committed some of the fewest errors among 
 
 
     
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 
     
   </body>
